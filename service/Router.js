@@ -8,6 +8,13 @@ const Router = {
         const url = event.target.getAttribute('href');
         Router.go(url);
       });
+
+      // Event handler for URL changes
+      window.addEventListener('popstate', (event) => {
+        Router.go(event.state.route, false);
+      });
+
+      // check the initial URL
       Router.go(location.pathname);
     });
   },
@@ -33,9 +40,8 @@ const Router = {
         if (route.startsWith('/product-')) {
           pageElement = document.createElement('h1');
           pageElement.textContent = 'Details';
-          pageElement.dataset.productId = route.substring(
-            route.lastIndexOf('-') + 1
-          );
+          const paramId = route.substring(route.lastIndexOf('-') + 1);
+          pageElement.dataset.productId = paramId;
         }
         break;
     }

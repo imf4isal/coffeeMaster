@@ -5,6 +5,7 @@ import Store from './service/Store.js';
 import './components/DetailsPage.js';
 import './components/MenuPage.js';
 import './components/OrderPage.js';
+import './components/ProductItem.js';
 
 window.app = {};
 app.store = Store;

@@ -1,4 +1,5 @@
 import { getProductById } from '../service/Menu.js';
+import { addToCart } from '../service/Order.js';
 
 export default class DetailsPage extends HTMLElement {
   constructor() {
@@ -31,6 +32,7 @@ export default class DetailsPage extends HTMLElement {
       ).textContent = `$ ${this.product.price.toFixed(2)} ea`;
       this.root.querySelector('button').addEventListener('click', () => {
         // TODO addToCart(this.product.id);
+        addToCart(this.product.id);
         app.router.go('/order');
       });
     } else {

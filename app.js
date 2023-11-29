@@ -16,3 +16,10 @@ window.addEventListener('DOMContentLoaded', () => {
   app.router.init();
   console.log('ready');
 });
+
+window.addEventListener('appcartchange', (event) => {
+  const badge = document.getElementById('badge');
+  const qty = app.store.cart.reduce((acc, item) => acc + item.quantity, 0);
+  badge.textContent = qty;
+  badge.hidden = qty == 0;
+});

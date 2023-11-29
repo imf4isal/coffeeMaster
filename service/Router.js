@@ -6,8 +6,9 @@ const Router = {
 
         // const url = a.href; // property, have access bcz of closure
         const url = event.target.getAttribute('href');
-        Router.go(location.pathname);
+        Router.go(url);
       });
+      Router.go(location.pathname);
     });
   },
   go: (route, addToHistory = true) => {
@@ -16,6 +17,36 @@ const Router = {
     if (addToHistory) {
       history.pushState({ route }, null, route);
     }
+
+    let pageElement = null;
+
+    switch (route) {
+      case '/':
+        pageElement = document.createElement('h1');
+        pageElement.textContent = 'Menu';
+        break;
+      case '/order':
+        pageElement = document.createElement('h1');
+        pageElement.textContent = 'Order';
+        break;
+      default:
+        if (route.startsWith('/product-')) {
+          pageElement = document.createElement('h1');
+          pageElement.textContent = 'Details';
+          pageElement.dataset.productId = route.substring(
+            route.lastIndexOf('-') + 1
+          );
+        }
+        break;
+    }
+
+    if (pageElement) {
+      document.querySelector('main').innerHTML = '';
+      document.querySelector('main').appendChild(pageElement);
+    }
+
+    window.scrollX = 0;
+    window.scrollY = 0;
   },
 };
 
